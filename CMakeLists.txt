@@ -883,3 +883,6 @@ IF(CPUINFO_BUILD_PKG_CONFIG)
   DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig")
 
 ENDIF()
+
+add_executable(tester src/test.c)
+target_link_libraries(tester cpuinfo)
