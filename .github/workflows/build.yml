@@ -25,6 +25,10 @@ jobs:
       - name: Configure and build
         run: scripts/local-build.sh
         working-directory: ${{ github.workspace }}
+      - name: Run tester
+        run: |
+          find ${{ github.workspace }} -name tester
+          xargs $(find ${{ github.workspace }} -name tester)
   cmake-darwin:
     runs-on: macos-latest
     timeout-minutes: 40
@@ -35,6 +39,10 @@ jobs:
       - name: Configure and build
         run: scripts/local-build.sh
         working-directory: ${{ github.workspace }}
+      - name: Run tester
+        run: |
+          find ${{ github.workspace }} -name tester
+          xargs $(find ${{ github.workspace }} -name tester)
   cmake-windows:
     runs-on: windows-latest
     timeout-minutes: 40
@@ -46,31 +54,27 @@ jobs:
         run: scripts/local-build.sh
         shell: bash  # Specify bash so we can reuse the build script on Windows (runs on Git bash)
         working-directory: ${{ github.workspace }}
+      - name: Run tester
+        run: |
+          find ${{ github.workspace }} -name tester.exe
+          xargs $(find ${{ github.workspace }} -name tester.exe)
   cmake-uwp:
     runs-on: windows-latest
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v2
-      - name: 'x64-uwp(Debug)'
-        uses: lukka/run-cmake@v10
-        with:
-          configurePreset: 'x64-uwp'
-          buildPreset: 'x64-uwp-dbg'
       - name: 'x64-uwp(Release)'
         uses: lukka/run-cmake@v10
         with:
           configurePreset: 'x64-uwp'
           buildPreset: 'x64-uwp-rel'
-      - name: 'arm64-uwp(Debug)'
-        uses: lukka/run-cmake@v10
-        with:
-          configurePreset: 'arm64-uwp'
-          buildPreset: 'arm64-uwp-dbg'
-      - name: 'arm64-uwp(Release)'
-        uses: lukka/run-cmake@v10
-        with:
-          configurePreset: 'arm64-uwp'
-          buildPreset: 'arm64-uwp-rel'
+      - name: Run tester absolute
+        run: |
+          D:\a\cpuinfo\cpuinfo\build\x64-uwp\Release\tester.exe
+      - name: Run tester
+        run: |
+          find ${{ github.workspace }} -name tester.exe
+          xargs $(find ${{ github.workspace }} -name tester.exe)
   cmake-android:
     strategy:
       matrix:
