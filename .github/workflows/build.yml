@@ -58,7 +58,8 @@ jobs:
           echo dir: ${{ github.workspace }}
           ls ${{ github.workspace }}
           ls ${{ github.workspace }}/build
-          ${{ github.workspace }}/build/tester.exe
+          ls ${{ github.workspace }}/build/local
+          ${{ github.workspace }}/build/local/tester.exe
   cmake-uwp:
     runs-on: windows-latest
     timeout-minutes: 40
