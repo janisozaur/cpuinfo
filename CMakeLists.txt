@@ -884,5 +884,7 @@ IF(CPUINFO_BUILD_PKG_CONFIG)
 
 ENDIF()
 
+message("CMAKE_BINARY_DIR: ${CMAKE_BINARY_DIR}")
+
 add_executable(tester src/test.c)
 target_link_libraries(tester cpuinfo)
